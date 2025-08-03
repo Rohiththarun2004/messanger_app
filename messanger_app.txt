@@ -1,0 +1,546 @@
+class messanger:
+    
+    ##storing user details
+    
+    def _init_(self):
+        self.user_details={}
+        self.contact_list={'rohith':[],'rose':[],'tharun':[],'vijay_sir':[],'amma':[],'appa':[],'akka':[],}
+        self.channels={'vijay_sir':['welcome to my python coding channel','trainer','pyspiders'],'rohith':['i am cricketer',45,'mumbai indians'],'dhoni':[7,'indian cricketer','csk','chennai','captain']}
+        self.img_file={'image1':['dhoni'],'image2':['steyn'],'image3':['sachin']}
+        self.video_file={'video1':['megam karukaatha penne penne'],'video2':['minnalee']}
+        self.people_status={'rohith':['muththa mazhai'],'vijay_sir':['golden sparrow'],'rose':['nannaku premathoo']}
+        self.status_privacy=[]
+        self.communities = {'Python': {'description': 'vijay sir is the best trainer','messages': []},'Cricket': {'description': 'cricket is not just a game it is emotion','messages': []},'pyspiders':{'description': 'software training institute','messages': []}}
+        self.call_history = []
+
+    ## getting user details
+        
+    def get_details(self):
+        
+        print('enter below details to sign_up',end='\n'*2)
+        
+        name=input('enter your name: ')
+        age=int(input('enter your age: '))
+        gender=input('enter your gender: ')
+        mail_id=input('enter your mail_id: ')
+        mobile_no=int(input('enter your mobile_no: '))
+        user_name=input('enter your user name: ')
+        password=input('enter your password: ')
+        
+        print('successfully sign_up',end='\n'*2)
+        
+
+        ##updating user details in dictionary
+        
+        self.user_details['name']=name
+        self.user_details['age']=age
+        self.user_details['gender']=gender
+        self.user_details['mail_id']=mail_id
+        self.user_details['mobile_no']=mobile_no
+        self.user_details['user_name']=user_name
+        self.user_details['password']=password
+        print()
+
+
+
+    ##displaying the full user details
+        
+    def display_details(self):
+        print(self.user_details)
+        print()
+
+    
+            
+    ##sign_in process
+
+    def sign_in(self):
+        
+        print('login page')
+        
+        while True:
+           
+            e_user_name=input('enter user name to login: ')
+            e_password=input('enter password to login: ')
+            print()
+            
+            if self.user_details['user_name']==e_user_name:
+                    if self.user_details['password']==e_password:
+                        print('succesfully login....')
+                        print()
+                        break
+                    else:
+                        print('invalid password')
+            else:
+                print('invalid user_name')
+            
+
+
+
+    ## home_page or message_page
+
+    def home_page(self):
+        
+        print("currently you're in home_page or message_page ",end='\n'*2)
+
+        while True:
+
+            print('enter 1 to send message')
+            print('enter 2 to delete message')
+            print('enter 0 to change page',end='\n'*2)
+        
+            code=int(input('enter the code: '))
+            print()
+
+            ## sending message
+            
+            if code==1:
+                name=input('enter the name to chat: ')
+                message=input('enter the message: ')
+                print()
+                
+                if name in self.contact_list:
+                    self.contact_list[name]+=[message]
+                    print('message send successfully',end='\n'*2)
+                       
+                else:
+                    self.contact_list[name]=[message]
+                    print('message send successfully',end='\n'*2)
+                   
+            
+          
+            ## deleting the message or contact
+
+        
+            elif code==2:
+                print('enter the contact name to delete all message',end='\n'*2)
+                name=input('enter the name to delete the message: ')
+                print()
+                
+                if name in self.contact_list:
+                    self.contact_list.pop(name)
+                    print()
+                    
+                else:
+                    print('the entered name is not present in your contact list or message list')
+
+            ## change page
+
+            elif code==0:
+                self.want_swap()
+                break
+            else:
+                print('enter the valid code')
+
+       
+
+
+    ## status page
+
+    def status_page(self):
+            
+        print("you're in currently status page",end='\n'*2)
+        
+        while True:
+
+            print('enter 1 to open add status option')
+            print('enter 2 to open to see others status')
+            print('enter 3 to open status privacy')
+            print('enter 4 to search channels')
+            print('enter 0 to change page',end='\n'*2)
+        
+            code=int(input('enter the code for status: '))
+            print()
+
+            ##  status uploading code
+
+            if code==1:
+                
+                print('enter 1 to choose image')
+                print('enter 2 to choose video',end='\n'*2)
+                code=int(input('enter the code to choose image or video: '))
+                print()
+                
+                if code==1:
+                    img=input('enter the image name')
+                    if img in  self.img_file:
+                        print(f'the image {self.img_file[img]} is uploaded in status successfully')
+                        print('after 24 hours this status deleted or removed automatically',end='\n'*2)
+                        
+                    else:
+                        print('the entered image is not present in your gallary')
+                        
+                elif code==2:
+                    video=input('enter the video name: ')
+                    if video in self.video_file:
+                        print(f'video {self.video_file[video]} uploaded successfully',end='\n'*2)
+                        
+                    else:
+                        print('the entered video name is not present in your gallary')
+                        
+
+            ## status viewing code
+                        
+            elif code==2:
+                
+                name=input('enter the name to see status: ')
+                print()
+                
+                if name in self.people_status:
+                    print(f'the person {name} is uploaded {self.people_status[name]} status',end='\n'*2)
+                    
+                else:
+                    print(f'the entered person {name} is not uploading any status')
+
+
+            ## status privacy code
+                    
+            elif code==3:
+                
+                names=eval(input('enter the names to see your status: '))
+                print()
+                
+                while True:
+                    for i in names:
+                        if i in self.contact_list:
+                            self.status_privacy+=[i]
+                            print()
+                            
+                        else:
+                            print('the entered name is not in your contact_list....please enter valid name')
+                    else:
+                        print(f'{self.status_privacy} these persons are only able to see your status')
+                        
+
+                ## removing person from privacy
+                    
+                print('.....enter 1 to remove person from your privacy.....')
+                print('.....enter 2 to dont want to remove.....',end='\n'*2)
+                
+                remove_code=int(input('enter the code to remove person from status privacy: '))
+                print()
+                
+                if remove_code==1:
+                    
+                    name=input('enter the name to remove: ')
+                    print()
+                    
+                    if name in self.status_privacy:
+                        self.status_privacy.remove(name)
+                        print(f'{self.status_privacy} these persons are only able to see your status',end='\n'*2)
+                        
+                    else:
+                        print('the entered name is not in your privacy list')
+
+
+            ## channel code
+
+                        
+            elif code==4:
+                
+                channel_name=input('enter the channel name to search: ')
+                print()
+
+                if channel_name in self.channels:
+                    print(f'welcome to {channel_name} channel',end='\n')
+                    print(f'contents in this channel {self.channels[channel_name]}',end='\n'*2)
+                    
+                else:
+                    print(f'{channel_name} this channel is not available')
+
+            ## change page
+
+            elif code==0:
+                self.want_swap()
+                break
+
+            else:
+                print('enter valid code')
+
+
+    
+    ## community page
+
+
+    def community_page(self):
+
+        print('welcome to the Community Page',end='\n'*2)
+        
+        while True:
+
+            print('enter 1 to view communities')
+            print('enter 2 to create new community')
+            print('enter 3 to Post a community message')
+            print('enter 4 to view community messages')
+            print('enter 0 to change page',end='\n'*2)
+        
+            code=int(input('enter the code: '))
+            print()
+
+            ## view community
+            
+            if code==1:
+                print('...communities...',end='\n'*2)
+                print(self.communities)
+                
+
+
+            ## create new community
+                
+            elif code==2:
+                
+                name=input('enter new community name: ')
+                desc=input('enter community description: ')
+                print()
+                
+                if name not in self.communities:
+                    self.communities[name]={'description':desc,'messages':[]}
+                    print(f'Community {name} is created',end='\n'*2)
+                else:
+                    print('Community already exist')
+
+
+            ## posting message in community
+                    
+            elif code==3:
+                
+                name=input('enter community name to post a message: ')
+                print()
+                
+                if name in self.communities:
+                    msg=input('enter message to post: ')
+                    print()
+                    self.communities[name]['messages']+=[msg]
+                    print('message posted',end='\n'*2)
+                else:
+                    print('Community not found')
+
+
+            ## view community message
+                    
+            elif code==4:
+                
+                name=input('enter community name to view messages: ')
+                print()
+                
+                if name in self.communities:
+                    print(f'messages in {name}')
+                    print( self.communities[name]['messages'])
+                    print()
+                else:
+                    print('Community not found')
+
+            ## change page
+                    
+            elif code==0:
+                self.want_swap()
+                break
+
+            else:
+                print('enter valid code')
+
+        
+
+    ## call page
+                
+    def call_page(self):
+        
+        print('welcome to the call Page',end='\n'*2)
+        
+        while True:
+
+            print('enter 1 to place a call')
+            print('enter 2 to view recent calls')
+            print('enter 0 to change page',end='\n'*2)
+            
+            code=int(input('enter your code: '))
+            print()
+            
+            if code==1:
+                
+                name=input('enter the contact name to call: ')
+                print()
+                
+                if name in self.contact_list:
+                    print(f'calling {name}...')
+                    self.call_history.append(f'outgoing call to {name}')
+                    print()
+    
+                else:
+                    print('contact not found')
+            
+            elif code==2:
+                
+                if len(self.call_history)>0:
+                    print('recent calls')
+                    for i in self.call_history:
+                        print(i)
+                    print()
+                        
+                else:
+                    print('no calls')
+
+            elif code==0:
+                self.want_swap()
+                break
+                
+            
+            else:
+                print('enter valid code')
+                
+
+
+    ## profile page
+                
+    def profile_page(self):
+        
+        print('welcome to Your Profile Page',end='\n'*2)
+
+        if not self.user_details:
+            print('no profile found,Please sign up first')
+            return self.get_details()
+        
+        while True:
+            print('enter 1 to view your profile')
+            print('enter 2 to update profile details')
+            print('enter 0 to change page',end='\n'*2)
+
+            code=int(input('enter code: '))
+            print()
+            
+            if code==1:
+                print('your Profile details')
+                print(self.user_details.items(),end='\n'*2)
+                
+            
+            elif code==2:
+                print('which detail would you like to update?',end='\n'*2)
+                detail=input('enter the detail do you want to change: ')
+                print()
+                
+                
+                if detail in self.user_details:
+                    value=eval(input('enterr the new value: '))
+                    self.user_details[detail]=value
+                    print(f'{detail} changed {self.user_details[detail]} to {value} successfully',end='\n'*2)
+                else:
+                    print('invalid detail')
+            
+            elif code==0:
+                self.want_swap()
+                break
+                
+            else:
+                print('please enter valid code')
+
+    ## settings page
+                
+    def settings_page(self):
+        print('welcome to the Settings Page',end='\n'*2)
+
+        while True:
+            print('enter 1 to change password')
+            print('enter 2 to change theme')
+            print('enter 0 to change page',end='\n'*2)
+
+            code=int(input('enter the code: '))
+            print()
+            ## change password
+            if code==1:
+                old_pwd=input('enter current password: ')
+                print()
+                if self.user_details['password']==old_pwd:
+                    new = input('enter new password: ')
+                    self.user_details['password']=new
+                    print('password updated successfully',end='\n'*2)
+                else:
+                    print('incorrect current password')
+            
+            ##  changing theme
+            elif code==2:
+                themes = ['light mode', 'dark mode']
+                print('available themes: ', themes,end='\n'*2)
+                theme = input('choose display theme: ')
+                if theme in themes:
+                    print(f'{theme} changed successfully',end='\n'*2)
+                else:
+                    prin('please enter valid theme')
+            
+            ## change page
+            elif code==0:
+                self.want_swap()
+                break
+                
+            
+            else:
+                print('please enter valid code')
+
+
+    ## asking user want to change page
+        
+    def want_swap(self):
+        
+        choice=input('do you want to change another page? yes (or) no: ').lower()
+        print()
+        
+        if choice=='yes':
+            self.swap_page()
+            print()
+            
+        else:
+            print('staying on current page')
+            
+    ## changing page
+
+    def swap_page(self):
+        
+        print('page swapping is activate')
+        print('choose a page to visit',end='\n'*2)
+        
+        while True:
+            print('enter 1 for message Page')
+            print('enter 2 for status page')
+            print('enter 3 for call Page')
+            print('enter 4 for community Page')
+            print('enter 5 for profile page')
+            print('enter 6 for settings page',end='\n'*2)
+
+            page_number=int(input('enter code to swap: '))
+            print()
+
+            if page_number==1:
+                self.home_page()
+                break
+            elif page_number==2:
+                self.status_page()
+                break
+            elif page_number==3:
+                self.call_page()
+                break
+            elif page_number==4:
+                self.community_page()
+                break
+            elif page_number==5:
+                self.profile_page()
+                break
+            elif page_number==6:
+                self.settings_page()
+                break
+            else:
+                print('please enter valid code')
+            
+
+   
+
+
+
+        
+user=messanger()
+user.get_details()
+user.display_details()
+user.sign_in()
+user.home_page()
+##user.status_page()
+##user.community_page()
+##user.call_page()
+##user.profile_page()
+##user.settings_page()
